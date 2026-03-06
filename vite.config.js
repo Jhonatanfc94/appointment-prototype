@@ -7,5 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: '/nombre-de-tu-repo/', // <-- Solo agregas esta línea
+  base: '/appointment-prototype/', // <-- Solo agregas esta línea
 })
