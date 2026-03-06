@@ -25,8 +25,16 @@ const App = () => {
     lightPurple: '#f5f3ff'
   };
 
+  // --- CÁLCULO DE FECHAS DINÁMICAS (HOY Y MAÑANA) ---
+  const todayObj = new Date();
+  const today = todayObj.toISOString().split('T')[0];
+  
+  const tomorrowObj = new Date(todayObj);
+  tomorrowObj.setDate(tomorrowObj.getDate() + 1);
+  const tomorrow = tomorrowObj.toISOString().split('T')[0];
+
   // --- ESTADO Y DATOS SIMULADOS ---
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState(today);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('TODOS');
 
@@ -39,12 +47,12 @@ const App = () => {
   };
 
   const [appointments, setAppointments] = useState([
-    { id: 1, patient: "Laura Méndez", dni: "12345678A", time: "08:30", date: "2026-03-03", status: "FINALIZADO", reason: "Primera Consulta Fertilidad", doctor: "Dr. Gutierrez" },
-    { id: 2, patient: "Jimena Soto", dni: "87654321B", time: "09:30", date: "2026-03-03", status: "EN_ESPERA", reason: "Control Estimulación", doctor: "Dra. Ramos" },
-    { id: 3, patient: "Patricia Luna", dni: "45678912C", time: "10:00", date: "2026-03-03", status: "PENDIENTE", reason: "Transferencia Embrionaria", doctor: "Dr. Gutierrez" },
-    { id: 4, patient: "Carla Espinoza", dni: "23456789D", time: "11:15", date: "2026-03-03", status: "PENDIENTE", reason: "Ecografía Fetal", doctor: "Dra. Ramos" },
-    { id: 5, patient: "Sofía Vaca", dni: "34567890E", time: "11:45", date: "2026-03-03", status: "EN_ESPERA", reason: "Consulta Resultados Beta", doctor: "Dr. Gutierrez" },
-    { id: 6, patient: "Lucía Ortiz", dni: "56789012F", time: "09:00", date: "2026-03-04", status: "PENDIENTE", reason: "Inseminación Intrauterina", doctor: "Dra. Ramos" },
+    { id: 1, patient: "Laura Méndez", dni: "12345678A", time: "08:30", date: today, status: "FINALIZADO", reason: "Primera Consulta Fertilidad", doctor: "Dr. Gutierrez" },
+    { id: 2, patient: "Jimena Soto", dni: "87654321B", time: "09:30", date: today, status: "EN_ESPERA", reason: "Control Estimulación", doctor: "Dra. Ramos" },
+    { id: 3, patient: "Patricia Luna", dni: "45678912C", time: "10:00", date: today, status: "PENDIENTE", reason: "Transferencia Embrionaria", doctor: "Dr. Gutierrez" },
+    { id: 4, patient: "Carla Espinoza", dni: "23456789D", time: "11:15", date: today, status: "PENDIENTE", reason: "Ecografía Fetal", doctor: "Dra. Ramos" },
+    { id: 5, patient: "Sofía Vaca", dni: "34567890E", time: "11:45", date: today, status: "EN_ESPERA", reason: "Consulta Resultados Beta", doctor: "Dr. Gutierrez" },
+    { id: 6, patient: "Lucía Ortiz", dni: "56789012F", time: "09:00", date: tomorrow, status: "PENDIENTE", reason: "Inseminación Intrauterina", doctor: "Dra. Ramos" },
   ]);
 
   // --- LÓGICA DE FILTRADO Y ORDENAMIENTO ---
@@ -82,7 +90,7 @@ const App = () => {
     }
   };
 
-  const isToday = selectedDate === new Date().toISOString().split('T')[0];
+  const isToday = selectedDate === today;
 
   return (
     <div className="min-h-screen bg-[#fcfdfe] p-4 md:p-8 font-sans text-slate-800">
